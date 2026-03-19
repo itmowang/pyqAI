@@ -1,0 +1,32 @@
+{
+  "name": "blog-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "高性能博客系统 - Monorepo 架构",
+  "scripts": {
+    "dev": "pnpm --parallel -r dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "type-check": "pnpm -r type-check",
+    "mcp:dev": "pnpm --filter @blog/mcp dev",
+    "mcp:build": "pnpm --filter @blog/mcp build",
+    "mcp:bundle": "pnpm --filter @blog/mcp bundle",
+    "mcp:start": "pnpm --filter @blog/mcp start",
+    "deploy": "bash deploy/deploy.sh",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:reload": "pm2 reload ecosystem.config.cjs --update-env",
+    "pm2:stop": "pm2 stop ecosystem.config.cjs",
+    "pm2:logs": "pm2 logs",
+    "db:generate": "pnpm --filter @blog/database db:generate",
+    "db:push": "pnpm --filter @blog/database db:push",
+    "db:migrate": "pnpm --filter @blog/database db:migrate",
+    "db:seed": "pnpm --filter @blog/database db:seed",
+    "db:studio": "pnpm --filter @blog/database db:studio"
+  },
+  "keywords": ["monorepo", "blog", "react", "hono", "prisma"],
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

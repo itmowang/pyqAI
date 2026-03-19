@@ -1,0 +1,176 @@
+# Blog API 测试文件
+# 使用 REST Client 扩展或 curl 测试
+
+@baseUrl = http://localhost:3000/api
+@accessToken = YOUR_ACCESS_TOKEN_HERE
+
+### 健康检查
+GET http://localhost:3000
+
+### ========== 认证 ==========
+
+### 注册新用户
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "username": "testuser",
+  "password": "password123"
+}
+
+### 登录（管理员）
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@blog.com",
+  "password": "admin123"
+}
+
+### 登录（访客）
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "visitor@blog.com",
+  "password": "visitor123"
+}
+
+### 获取当前用户信息
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{accessToken}}
+
+### 刷新 Token
+POST {{baseUrl}}/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "YOUR_REFRESH_TOKEN"
+}
+
+### ========== 文章 ==========
+
+### 获取文章列表（公开）
+GET {{baseUrl}}/posts?page=1&limit=10
+
+### 获取单篇文章
+GET {{baseUrl}}/posts/POST_ID
+
+### 创建文章（需要管理员）
+POST {{baseUrl}}/posts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "title": "测试文章",
+  "content": "这是一篇测试文章的内容",
+  "images": [
+    "https://picsum.photos/400/300?random=1",
+    "https://picsum.photos/400/300?random=2"
+  ],
+  "published": true,
+  "tagIds": []
+}
+
+### 更新文章（需要管理员）
+PUT {{baseUrl}}/posts/POST_ID
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "title": "更新后的标题",
+  "published": true
+}
+
+### 删除文章（需要管理员）
+DELETE {{baseUrl}}/posts/POST_ID
+Authorization: Bearer {{accessToken}}
+
+### ========== 标签 ==========
+
+### 获取所有标签
+GET {{baseUrl}}/tags
+
+### 创建标签（需要管理员）
+POST {{baseUrl}}/tags
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "新标签",
+  "color": "#FF5733"
+}
+
+### 更新标签（需要管理员）
+PUT {{baseUrl}}/tags/TAG_ID
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "更新的标签名",
+  "color": "#33FF57"
+}
+
+### 删除标签（需要管理员）
+DELETE {{baseUrl}}/tags/TAG_ID
+Authorization: Bearer {{accessToken}}
+
+### ========== 评论 ==========
+
+### 获取文章的评论
+GET {{baseUrl}}/comments/post/POST_ID
+
+### 创建评论（需要登录）
+POST {{baseUrl}}/comments
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "content": "这是一条评论",
+  "postId": "POST_ID"
+}
+
+### 回复评论（需要登录）
+POST {{baseUrl}}/comments
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "content": "这是一条回复",
+  "postId": "POST_ID",
+  "parentId": "PARENT_COMMENT_ID"
+}
+
+### 删除评论（作者或管理员）
+DELETE {{baseUrl}}/comments/COMMENT_ID
+Authorization: Bearer {{accessToken}}
+
+### ========== 主题 ==========
+
+### 获取所有主题
+GET {{baseUrl}}/themes
+
+### 获取当前激活的主题
+GET {{baseUrl}}/themes/active
+
+### 更新主题配置（需要管理员）
+PUT {{baseUrl}}/themes/THEME_ID
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "cssVariables": {
+    "--color-primary": "#FF0000",
+    "--color-bg": "#FFFFFF"
+  }
+}
+
+### 激活主题（需要管理员）
+PUT {{baseUrl}}/themes/THEME_ID
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "isActive": true
+}

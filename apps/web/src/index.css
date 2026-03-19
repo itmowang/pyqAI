@@ -1,0 +1,25 @@
+@import '@blog/ui/styles';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 微信朋友圈颜色变量 */
+:root {
+  --color-wechat-bg: #EDEDED;
+  --color-wechat-card: #FFFFFF;
+  --color-wechat-text: #000000;
+  --color-wechat-subtext: #8C8C8C;
+  --color-wechat-link: #576B95;
+  --color-wechat-divider: #E5E5E5;
+}

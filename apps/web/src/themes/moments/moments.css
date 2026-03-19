@@ -1,0 +1,721 @@
+/* 微信朋友圈主题样式 */
+
+.moments-theme {
+  min-height: 100vh;
+  background-color: #EDEDED;
+  margin: 0;
+  padding: 0;
+}
+
+/* 顶部区域 - 外部灰色，内部白色 */
+.moments-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  background-color: #EDEDED;
+}
+
+.moments-header-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 160px; /* 恢复原始高度 */
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  background-color: #fff;
+  display: block;
+}
+
+.moments-header-bg {
+  position: relative;
+  width: 100%;
+  height: 160px; /* 背景图片高度 */
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  display: block;
+  line-height: 0;
+  background-color: #f0f0f0;
+}
+
+.moments-header-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  padding: 0;
+  vertical-align: bottom;
+}
+
+/* 右上角操作按钮 */
+.moments-header-action {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+}
+
+/* 左上角网站名字 */
+.moments-site-name {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  z-index: 20;
+}
+
+.moments-site-name h1 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  padding: 0;
+}
+
+.moments-header-info {
+  position: absolute;
+  bottom: -32px; /* 负值让头像跨越边界，一半在header一半在内容区 */
+  right: 16px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 10;
+}
+
+.moments-header-name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  padding-bottom: 48px; /* 继续增加padding让文字更靠上 */
+}
+
+.moments-header-avatar {
+  width: 64px !important;
+  height: 64px !important;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background-color: #e0e7ff; /* 浅蓝色背景 */
+  border-radius: 4px !important; /* 圆角方形 */
+  overflow: hidden;
+}
+
+.moments-header-avatar * {
+  border-radius: 4px !important; /* 强制子元素也是圆角方形 */
+}
+
+.moments-header-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #e0e7ff;
+  border-radius: 4px !important;
+}
+
+/* 内容区域 - 紧贴header，无间隙 */
+.moments-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #fff;
+  display: block;
+  position: relative; /* 为了让头像可以悬浮 */
+}
+
+/* 点赞通知 */
+.moments-like-notification {
+  background-color: #F7F7F7;
+  padding: 12px 16px;
+  margin: 0;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.moments-like-notification .line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.moments-list {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  padding-top: 40px; /* 只在列表顶部留出空间给悬浮的头像 */
+}
+
+/* 文章卡片 */
+.moments-post {
+  padding: 16px;
+  border-bottom: 1px solid #E5E5E5;
+  display: flex;
+  gap: 12px;
+  transition: background-color 0.2s;
+  background-color: #fff;
+}
+
+.moments-post:hover {
+  background-color: #FAFAFA;
+}
+
+.moments-post:last-child {
+  border-bottom: none;
+}
+
+.moments-post-avatar {
+  flex-shrink: 0;
+}
+
+.moments-post-avatar * {
+  border-radius: 4px !important; /* 强制子元素也是圆角方形 */
+}
+
+.moments-post-avatar img,
+.moments-post-avatar > div {
+  width: 42px !important; /* 从48px减小到42px */
+  height: 42px !important;
+  border-radius: 4px !important; /* 圆角方形 */
+  background-color: #e0e7ff; /* 浅蓝色背景 */
+  object-fit: cover;
+}
+
+.moments-post-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.moments-post-header {
+  margin-bottom: 6px;
+}
+
+.moments-post-author {
+  color: #576B95;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.moments-post-author:hover {
+  opacity: 0.8;
+}
+
+.moments-post-title {
+  color: #000;
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  word-wrap: break-word;
+  font-weight: 500;
+}
+
+.moments-post-text {
+  color: #000;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* 图片网格 */
+.moments-post-images {
+  margin-bottom: 10px;
+}
+
+.moments-images-grid {
+  display: grid;
+  gap: 4px;
+}
+
+.moments-images-grid.grid-1 {
+  grid-template-columns: repeat(1, 1fr);
+  max-width: 150px; /* 单张图片缩小 */
+}
+
+.moments-images-grid.grid-2,
+.moments-images-grid.grid-4 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 240px; /* 2/4张图片适中 */
+}
+
+.moments-images-grid.grid-3,
+.moments-images-grid.grid-5,
+.moments-images-grid.grid-6,
+.moments-images-grid.grid-7,
+.moments-images-grid.grid-8,
+.moments-images-grid.grid-9 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 240px; /* 3-9张图片放大 */
+}
+
+.moments-image-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.moments-image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.moments-image-item:hover img {
+  transform: scale(1.05);
+}
+
+/* 标签 */
+.moments-post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.moments-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: #F0F0F0;
+  color: #666;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+/* 底部信息 */
+.moments-post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.moments-post-time {
+  color: #8C8C8C;
+  font-size: 12px;
+}
+
+.moments-post-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.moments-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #8C8C8C;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 4px 8px;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.moments-action-btn:hover {
+  color: #576B95;
+  background-color: #F0F0F0;
+}
+
+.moments-action-btn.liked {
+  color: #E74C3C;
+}
+
+/* 点赞和评论交互区域 - 微信风格 */
+.moments-interactions {
+  margin-top: 10px;
+  background-color: #F7F7F7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* 点赞区域 */
+.moments-likes-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #F7F7F7;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.moments-likes-icon {
+  font-size: 14px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.moments-likes-content {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #576B95;
+}
+
+.moments-likes-username {
+  color: #576B95;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.moments-likes-username:hover {
+  opacity: 0.8;
+}
+
+.moments-likes-separator {
+  color: #576B95;
+}
+
+/* 评论区域 */
+.moments-comments-section {
+  padding: 8px 12px;
+  background-color: #F7F7F7;
+}
+
+.moments-comments {
+  margin-top: 10px;
+  background-color: #F7F7F7;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+/* 评论区域 */
+.moments-comments-section {
+  padding: 8px 12px;
+  background-color: #F7F7F7;
+}
+
+.moments-comment-item {
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.moments-comment-item:last-child {
+  margin-bottom: 0;
+}
+
+.moments-comment-author {
+  color: #576B95;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.moments-comment-author:hover {
+  opacity: 0.8;
+}
+
+.moments-comment-text {
+  color: #000;
+}
+
+.moments-comment-reply {
+  margin-left: 16px;
+  margin-top: 4px;
+  padding-left: 8px;
+  border-left: 2px solid #E5E5E5;
+}
+
+.moments-comment-time {
+  color: #8C8C8C;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* 评论输入框 */
+.moments-comment-input {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #E5E5E5;
+}
+
+.moments-comment-input-field {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid #E5E5E5;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  background-color: #fff;
+}
+
+.moments-comment-input-field:focus {
+  border-color: #576B95;
+}
+
+.moments-comment-input-field:disabled {
+  background-color: #F5F5F5;
+  cursor: not-allowed;
+}
+
+.moments-comment-submit {
+  padding: 6px 16px;
+  background-color: #576B95;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.moments-comment-submit:hover:not(:disabled) {
+  background-color: #4a5a7f;
+}
+
+.moments-comment-submit:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .moments-header-container {
+    height: 120px; /* 移动端高度 */
+  }
+
+  .moments-header-bg {
+    height: 120px;
+  }
+
+  .moments-header-info {
+    bottom: -28px;
+    right: 12px;
+  }
+
+  .moments-header-name {
+    font-size: 14px;
+    padding-bottom: 34px;
+  }
+
+  .moments-header-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 4px !important;
+  }
+
+  .moments-header-avatar * {
+    border-radius: 4px !important;
+  }
+
+  .moments-list {
+    padding-top: 36px;
+  }
+
+  .moments-post {
+    padding: 12px;
+  }
+
+  .moments-images-grid {
+    max-width: 100% !important;
+  }
+}
+
+/* 我的点赞通知 */
+.moments-my-likes-notification {
+  background-color: #fff;
+  border-bottom: 8px solid #EDEDED;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.moments-my-likes-notification:hover {
+  background-color: #FAFAFA;
+}
+
+.moments-my-likes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.moments-my-likes-title {
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.moments-my-likes-time {
+  color: #8C8C8C;
+  font-size: 12px;
+}
+
+.moments-my-likes-content {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.moments-my-likes-avatars {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  padding-left: 0;
+}
+
+.moments-my-likes-avatar {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: -8px;
+  background-color: #e0e7ff;
+  position: relative;
+}
+
+.moments-my-likes-avatar:first-child {
+  margin-left: 0;
+}
+
+.moments-my-likes-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.moments-my-likes-more {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background-color: #F0F0F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #666;
+  margin-left: -8px;
+}
+
+.moments-my-likes-post {
+  flex: 1;
+  min-width: 0;
+}
+
+.moments-my-likes-post-content {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.moments-my-likes-more-posts {
+  color: #8C8C8C;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* 展开的点赞通知列表 */
+.moments-my-likes-expanded {
+  margin-top: 8px;
+}
+
+.moments-my-likes-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.moments-my-likes-item:last-child {
+  border-bottom: none;
+}
+
+.moments-my-likes-item-users {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.moments-my-likes-item-post {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+  background-color: #F7F7F7;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.moments-my-likes-item-time {
+  color: #8C8C8C;
+  font-size: 11px;
+}
+
+/* 朋友圈详情页 */
+.moments-detail-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #E5E5E5;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.moments-back-btn {
+  background: none;
+  border: none;
+  color: #576B95;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: opacity 0.2s;
+}
+
+.moments-back-btn:hover {
+  opacity: 0.7;
+}
+
+.moments-detail-header h2 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+}
+
+.moments-detail-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+/* 让朋友圈卡片可点击 */
+.moments-post {
+  cursor: pointer;
+}
+
+.moments-post:hover {
+  background-color: #FAFAFA;
+}
+
+/* 详情页中的朋友圈不需要hover效果 */
+.moments-detail-content .moments-post {
+  cursor: default;
+}
+
+.moments-detail-content .moments-post:hover {
+  background-color: #fff;
+}
