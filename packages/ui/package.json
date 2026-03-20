@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./dist/index.js",
     "./styles": "./src/styles/index.css"
   },
   "scripts": {
+    "build": "tsc",
     "type-check": "tsc --noEmit",
     "lint": "eslint src --ext ts,tsx",
     "demo": "cd demo && pnpm dev"

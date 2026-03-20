@@ -1,4 +1,3 @@
-import { Avatar } from '@blog/ui';
 
 interface LikeNotificationProps {
   likes: any[];

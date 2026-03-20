@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 import clsx from 'clsx';
 
 interface BadgeProps {
@@ -7,9 +7,10 @@ interface BadgeProps {
   size?: 'sm' | 'md' | 'lg';
   dot?: boolean;
   className?: string;
+  style?: CSSProperties;
 }
 
-export const Badge = ({ children, variant = 'default', size = 'md', dot, className }: BadgeProps) => {
+export const Badge = ({ children, variant = 'default', size = 'md', dot, className, style }: BadgeProps) => {
   const variants = {
     default: 'bg-gray-100 text-gray-800',
     primary: 'bg-indigo-100 text-indigo-800',
@@ -27,6 +28,7 @@ export const Badge = ({ children, variant = 'default', size = 'md', dot, classNa
 
   return (
     <span
+      style={style}
       className={clsx(
         'inline-flex items-center gap-1.5 font-medium rounded-full',
         variants[variant],

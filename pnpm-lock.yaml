@@ -186,6 +186,9 @@ importers:
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6
+      '@types/node':
+        specifier: ^20.19.35
+        version: 20.19.35
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3

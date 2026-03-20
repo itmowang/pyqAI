@@ -2,9 +2,7 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import { prisma } from '@blog/database';
 import { hashPassword, comparePassword } from '../utils/password';
-import { generateTokens } from '../utils/jwt';
-
-export type UserRole = 'ADMIN' | 'VISITOR';
+import { generateTokens, UserRole } from '../utils/jwt';
 import { authenticate } from '../middleware/auth';
 
 const app = new Hono();
@@ -68,7 +66,7 @@ app.post('/register', async (c) => {
     const tokens = generateTokens({
       userId: user.id,
       email: user.email,
-      role: user.role,
+      role: user.role as UserRole,
     });
 
     return c.json({
@@ -119,7 +117,7 @@ app.post('/login', async (c) => {
     const tokens = generateTokens({
       userId: user.id,
       email: user.email,
-      role: user.role,
+      role: user.role as UserRole,
     });
 
     return c.json({
