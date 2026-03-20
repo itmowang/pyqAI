@@ -16,8 +16,7 @@ echo "🗄️  [2/6] 生成 Prisma Client..."
 pnpm db:generate
 
 echo "🗄️  [3/6] 执行数据库迁移..."
-DATABASE_URL="file:./packages/database/prisma/prod.db" \
-  pnpm --filter @blog/database db:push
+pnpm --filter @blog/database db:push
 
 echo "🔨 [4/6] 构建所有项目..."
 # 构建 API
