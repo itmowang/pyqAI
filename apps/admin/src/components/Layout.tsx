@@ -18,6 +18,7 @@ export default function Layout() {
     { path: '/tags', icon: '🏷️', label: '标签管理' },
     { path: '/comments', icon: '💬', label: '评论管理' },
     { path: '/theme', icon: '🎨', label: '主题设置' },
+    { path: '/profile', icon: '👤', label: '个人设置' },
   ];
 
   const currentPage = menuItems.find(item => location.pathname.startsWith(item.path));

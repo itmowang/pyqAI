@@ -204,6 +204,35 @@ app.put('/avatar', authenticate, async (c) => {
   }
 });
 
+// 修改密码
+app.put('/password', authenticate, async (c) => {
+  try {
+    const { userId } = c.get('user');
+    const body = await c.req.json();
+    const { oldPassword, newPassword } = body;
+
+    if (!oldPassword || !newPassword) {
+      return c.json({ success: false, error: '请填写旧密码和新密码' }, 400);
+    }
+    if (newPassword.length < 6) {
+      return c.json({ success: false, error: '新密码至少6位' }, 400);
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) return c.json({ success: false, error: '用户不存在' }, 404);
+
+    const isValid = await comparePassword(oldPassword, user.password);
+    if (!isValid) return c.json({ success: false, error: '旧密码不正确' }, 400);
+
+    const hashed = await hashPassword(newPassword);
+    await prisma.user.update({ where: { id: userId }, data: { password: hashed } });
+
+    return c.json({ success: true, message: '密码修改成功' });
+  } catch (error) {
+    return c.json({ success: false, error: '密码修改失败' }, 500);
+  }
+});
+
 // 刷新 Token
 app.post('/refresh', async (c) => {
   try {

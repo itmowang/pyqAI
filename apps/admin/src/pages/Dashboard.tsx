@@ -141,7 +141,7 @@ export default function Dashboard() {
             </div>
             <div className="flex justify-between items-center py-2">
               <span className="text-sm text-gray-600">数据库</span>
-              <Badge variant="success">SQLite</Badge>
+              <Badge variant="success">MySQL</Badge>
             </div>
             <div className="flex justify-between items-center py-2">
               <span className="text-sm text-gray-600">后端框架</span>

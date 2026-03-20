@@ -9,6 +9,7 @@ import PostEdit from './pages/posts/PostEdit';
 import TagList from './pages/tags/TagList';
 import CommentList from './pages/comments/CommentList';
 import ThemeSettings from './pages/theme/ThemeSettings';
+import Profile from './pages/profile/Profile';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isAdmin } = useAuthStore();
@@ -45,6 +46,7 @@ function App() {
         <Route path="tags" element={<TagList />} />
         <Route path="comments" element={<CommentList />} />
         <Route path="theme" element={<ThemeSettings />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
   );
