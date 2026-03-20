@@ -160,7 +160,7 @@ export default function TagList() {
         </Button>
       </div>
 
-      <Card className="bg-white border border-gray-200">
+      <Card className="bg-white border border-wechat-divider">
         {tags?.length === 0 ? (
           <Empty
             description="还没有标签"

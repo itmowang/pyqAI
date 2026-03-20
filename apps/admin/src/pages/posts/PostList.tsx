@@ -127,7 +127,7 @@ export default function PostList() {
         </Button>
       </div>
 
-      <Card className="bg-white border border-gray-200">
+      <Card className="bg-white border border-wechat-divider">
         {data?.posts.length === 0 ? (
           <Empty
             description="还没有文章"

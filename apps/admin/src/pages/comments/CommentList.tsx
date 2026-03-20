@@ -40,7 +40,7 @@ export default function CommentList() {
   const deleteMutation = useMutation({
     mutationFn: (id: string) => api.delete(`/comments/${id}`),
     onSuccess: () => {
-      showToast('success', '评论删除成功！');
+      showToast('success', '评论删除成功');
       queryClient.invalidateQueries({ queryKey: ['comments'] });
       queryClient.invalidateQueries({ queryKey: ['posts-with-comments'] });
       setDeleteId(null);
@@ -80,13 +80,11 @@ export default function CommentList() {
       render: (_: any, record: any) => (
         <div>
           {record.isReply && (
-            <p className="text-xs text-gray-500 mb-1">
+            <p className="text-xs text-wechat-subtext mb-1">
               回复：{record.parentContent?.substring(0, 30)}...
             </p>
           )}
-          <p className={record.isReply ? 'ml-4 text-sm' : ''}>
-            {record.content}
-          </p>
+          <p className={record.isReply ? 'ml-4 text-sm' : ''}>{record.content}</p>
         </div>
       ),
     },
@@ -118,11 +116,11 @@ export default function CommentList() {
   return (
     <div className="space-y-4">
       {posts?.length === 0 ? (
-        <Card className="bg-white border border-gray-200">
+        <Card className="bg-white border border-wechat-divider">
           <Empty description="还没有评论" />
         </Card>
       ) : (
-        <Card className="bg-white border border-gray-200">
+        <Card className="bg-white border border-wechat-divider">
           <Tabs
             tabs={posts?.map((post: any) => ({
               key: post.id,
@@ -154,7 +152,7 @@ export default function CommentList() {
         title="确认删除"
         size="sm"
       >
-        <p className="text-gray-600 mb-4">确定要删除这条评论吗？此操作无法撤销。</p>
+        <p className="text-wechat-subtext mb-4">确定要删除这条评论吗？此操作无法撤销。</p>
         <div className="flex gap-2 justify-end">
           <Button variant="outline" onClick={() => setDeleteId(null)}>
             取消

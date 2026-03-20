@@ -64,7 +64,7 @@ export default function PostCreate() {
         </Button>
       </div>
 
-      <Card padding="lg" className="bg-white border border-gray-200">
+      <Card padding="lg" className="bg-white border border-wechat-divider">
         <Form onSubmit={handleSubmit}>
           <FormItem label="标题" required>
             <Input

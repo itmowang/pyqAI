@@ -1,25 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
-import { Card, Loading, Badge } from '@blog/ui';
+import { Loading } from '@blog/ui';
+import { useNavigate } from 'react-router-dom';
 import api from '../lib/axios';
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   const { data: stats, isLoading } = useQuery({
     queryKey: ['dashboard-stats'],
     queryFn: async () => {
-      const [posts, tags, comments] = await Promise.all([
-        api.get('/posts?limit=1'),
+      const [posts, tags] = await Promise.all([
+        api.get('/posts?limit=100'),
         api.get('/tags'),
-        api.get('/posts'),
       ]);
-      
+      const allPosts = (posts as any).data.posts;
       return {
         totalPosts: (posts as any).data.pagination.total,
-        publishedPosts: (posts as any).data.posts.filter((p: any) => p.published).length,
+        publishedPosts: allPosts.filter((p: any) => p.published).length,
         totalTags: (tags as any).data.length,
-        totalComments: (comments as any).data.posts.reduce(
-          (sum: number, post: any) => sum + post.commentCount,
-          0
-        ),
+        totalComments: allPosts.reduce((sum: number, post: any) => sum + post.commentCount, 0),
       };
     },
   });
@@ -33,126 +32,81 @@ export default function Dashboard() {
   }
 
   const statCards = [
-    {
-      title: '总文章数',
-      value: stats?.totalPosts || 0,
-      icon: '📝',
-      color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
-    },
-    {
-      title: '已发布',
-      value: stats?.publishedPosts || 0,
-      icon: '✅',
-      color: 'from-green-500 to-green-600',
-      bgColor: 'bg-green-50',
-    },
-    {
-      title: '标签数',
-      value: stats?.totalTags || 0,
-      icon: '🏷️',
-      color: 'from-purple-500 to-purple-600',
-      bgColor: 'bg-purple-50',
-    },
-    {
-      title: '评论数',
-      value: stats?.totalComments || 0,
-      icon: '💬',
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50',
-    },
+    { title: '总文章数', value: stats?.totalPosts || 0, icon: '📝' },
+    { title: '已发布', value: stats?.publishedPosts || 0, icon: '✅' },
+    { title: '标签数', value: stats?.totalTags || 0, icon: '🏷️' },
+    { title: '评论数', value: stats?.totalComments || 0, icon: '💬' },
+  ];
+
+  const quickActions = [
+    { path: '/posts/create', icon: '✍️', label: '创建新文章', desc: '发布新的博客内容' },
+    { path: '/tags', icon: '🏷️', label: '管理标签', desc: '添加或编辑标签' },
+    { path: '/theme', icon: '🎨', label: '主题设置', desc: '自定义网站外观' },
+    { path: '/profile', icon: '👤', label: '个人设置', desc: '修改密码等账户信息' },
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* 统计卡片 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {statCards.map(card => (
-          <Card key={card.title} padding="lg" hover className="bg-white border border-gray-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-500 mb-1">{card.title}</p>
-                <p className="text-3xl font-bold text-gray-900">{card.value}</p>
-              </div>
-              <div className={`w-12 h-12 bg-gradient-to-br ${card.color} rounded-lg flex items-center justify-center text-xl shadow-sm`}>
-                {card.icon}
-              </div>
+          <div key={card.title} className="bg-white border border-wechat-divider p-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-wechat-subtext text-sm">{card.title}</span>
+              <span className="text-xl">{card.icon}</span>
             </div>
-          </Card>
+            <p className="text-2xl font-bold text-wechat-text">{card.value}</p>
+          </div>
         ))}
       </div>
 
-      {/* 快速操作和系统信息 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card padding="lg" className="bg-white border border-gray-200">
-          <h3 className="text-base font-semibold text-gray-900 mb-4">快速操作</h3>
-          <div className="space-y-2">
-            <a
-              href="/posts/create"
-              className="block p-3 hover:bg-gray-50 rounded-lg transition-colors border border-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-sm">
-                  ✍️
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900">创建新文章</p>
-                  <p className="text-xs text-gray-500">发布新的博客内容</p>
-                </div>
-              </div>
-            </a>
-            <a
-              href="/tags"
-              className="block p-3 hover:bg-gray-50 rounded-lg transition-colors border border-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-sm">
-                  🏷️
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900">管理标签</p>
-                  <p className="text-xs text-gray-500">添加或编辑标签</p>
-                </div>
-              </div>
-            </a>
-            <a
-              href="/theme"
-              className="block p-3 hover:bg-gray-50 rounded-lg transition-colors border border-gray-100"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-100 text-green-600 rounded-lg flex items-center justify-center text-sm">
-                  🎨
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900">主题设置</p>
-                  <p className="text-xs text-gray-500">自定义网站外观</p>
-                </div>
-              </div>
-            </a>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* 快速操作 */}
+        <div className="bg-white border border-wechat-divider">
+          <div className="px-4 py-3 border-b border-wechat-divider">
+            <h3 className="text-sm font-semibold text-wechat-text">快速操作</h3>
           </div>
-        </Card>
+          <div className="divide-y divide-wechat-divider">
+            {quickActions.map(action => (
+              <button
+                key={action.path}
+                onClick={() => navigate(action.path)}
+                className="w-full flex items-center gap-3 px-4 py-3 hover:bg-wechat-bg transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-wechat-bg flex items-center justify-center text-base flex-shrink-0">
+                  {action.icon}
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-wechat-text">{action.label}</p>
+                  <p className="text-xs text-wechat-subtext">{action.desc}</p>
+                </div>
+                <svg className="w-4 h-4 text-wechat-subtext ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            ))}
+          </div>
+        </div>
 
-        <Card padding="lg" className="bg-white border border-gray-200">
-          <h3 className="text-base font-semibold text-gray-900 mb-4">系统信息</h3>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm text-gray-600">系统版本</span>
-              <Badge variant="primary">v1.0.0</Badge>
-            </div>
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm text-gray-600">数据库</span>
-              <Badge variant="success">MySQL</Badge>
-            </div>
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm text-gray-600">后端框架</span>
-              <Badge variant="info">Hono.js</Badge>
-            </div>
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm text-gray-600">前端框架</span>
-              <Badge variant="info">React 18</Badge>
-            </div>
+        {/* 系统信息 */}
+        <div className="bg-white border border-wechat-divider">
+          <div className="px-4 py-3 border-b border-wechat-divider">
+            <h3 className="text-sm font-semibold text-wechat-text">系统信息</h3>
           </div>
-        </Card>
+          <div className="divide-y divide-wechat-divider">
+            {[
+              { label: '系统版本', value: 'v1.0.0' },
+              { label: '数据库', value: 'MySQL' },
+              { label: '后端框架', value: 'Hono.js' },
+              { label: '前端框架', value: 'React 18' },
+            ].map(item => (
+              <div key={item.label} className="flex justify-between items-center px-4 py-3">
+                <span className="text-sm text-wechat-subtext">{item.label}</span>
+                <span className="text-sm text-wechat-link font-medium">{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
