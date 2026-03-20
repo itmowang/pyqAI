@@ -9,7 +9,7 @@ const app = new Hono();
 const createPostSchema = z.object({
   title: z.string().min(1).max(200),
   content: z.string().min(1),
-  images: z.array(z.string().url()).optional(),
+  images: z.array(z.string()).optional(),
   tagIds: z.array(z.string()).optional(),
   published: z.boolean().optional().default(false),
 });

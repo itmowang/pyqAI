@@ -129,6 +129,19 @@ export const tools = [
     },
   },
 
+  // ── 个人资料 ──────────────────────────────────────────
+  {
+    name: 'update_avatar',
+    description: '更新当前登录用户的头像（需要登录）。传入 base64 编码的图片字符串或图片 URL。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        avatar: { type: 'string', description: 'base64 图片字符串（data:image/...;base64,...）或图片 URL' },
+      },
+      required: ['avatar'],
+    },
+  },
+
   // ── 通知 ──────────────────────────────────────────────
   {
     name: 'get_like_notifications',

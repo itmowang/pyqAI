@@ -30,8 +30,7 @@ model User {
 model Post {
   id        String   @id @default(cuid())
   title     String
-  content   String
-  images    String?
+  content   String   @db.Text
   published Boolean  @default(false)
   authorId  String
   createdAt DateTime @default(now())
@@ -73,7 +72,7 @@ model PostTag {
 
 model Comment {
   id        String   @id @default(cuid())
-  content   String
+  content   String   @db.Text
   postId    String
   userId    String
   parentId  String?
@@ -111,7 +110,7 @@ model ThemeConfig {
   name         String   @unique
   displayName  String
   isActive     Boolean  @default(false)
-  cssVariables String
+  cssVariables String   @db.Text
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -124,7 +123,7 @@ model AuditLog {
   entity    String
   entityId  String?
   userId    String
-  metadata  String?
+  metadata  String?  @db.Text
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

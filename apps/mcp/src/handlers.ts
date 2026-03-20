@@ -173,6 +173,15 @@ export async function handleTool(name: string, args: Record<string, any>): Promi
         return ok(`💔 已取消点赞。当前点赞数: ${res.data.data.likeCount}`);
       }
 
+      // ── 更新头像 ──────────────────────────────────────
+      case 'update_avatar': {
+        const guard = requireLogin();
+        if (guard) return guard;
+        const res = await api.put('/api/auth/avatar', { avatar: args.avatar });
+        const u = res.data.data;
+        return ok(`✅ 头像更新成功！\n👤 ${u.username}`);
+      }
+
       // ── 通知 ──────────────────────────────────────────
       case 'get_like_notifications': {
         const guard = requireLogin();
